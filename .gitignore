@@ -1,0 +1,40 @@
+# Data files — too large for git (regenerate locally or download from synsep-dataset repo)
+accounts.csv
+normal_transactions.csv
+synsep_full_dataset.csv
+tokenised_dataset.csv
+sequences_train.csv
+sequences_val.csv
+sequences_test.csv
+training_log.csv
+validation_report.txt
+
+# Model checkpoints
+*.pt
+*.pth
+
+# Output figures
+*.png
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# macOS
+.DS_Store
+.AppleDouble
+
+# Claude Code session files
+.remember/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Virtual environments
+venv/
+env/
+.venv/

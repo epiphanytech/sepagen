@@ -1,0 +1,128 @@
+{
+  "vocab_size": 65,
+  "vocab_size_with_special": 66,
+  "pad_token": 65,
+  "tokens_per_transaction": 8,
+  "offsets": {
+    "amount": 0,
+    "country": 10,
+    "category": 13,
+    "is_new_ben": 22,
+    "is_weekend": 24,
+    "hour": 26,
+    "day": 50,
+    "time_delta": 57
+  },
+  "amount_buckets": [
+    [
+      0,
+      50
+    ],
+    [
+      50,
+      150
+    ],
+    [
+      150,
+      300
+    ],
+    [
+      300,
+      600
+    ],
+    [
+      600,
+      1200
+    ],
+    [
+      1200,
+      2500
+    ],
+    [
+      2500,
+      5000
+    ],
+    [
+      5000,
+      10000
+    ],
+    [
+      10000,
+      25000
+    ],
+    [
+      25000,
+      null
+    ]
+  ],
+  "time_delta_buckets": [
+    [
+      0,
+      3600
+    ],
+    [
+      3600,
+      21600
+    ],
+    [
+      21600,
+      86400
+    ],
+    [
+      86400,
+      259200
+    ],
+    [
+      259200,
+      604800
+    ],
+    [
+      604800,
+      1209600
+    ],
+    [
+      1209600,
+      2592000
+    ],
+    [
+      2592000,
+      null
+    ]
+  ],
+  "country_type_map": {
+    "domestic": 0,
+    "eu_cross_border": 1,
+    "non_eu": 2
+  },
+  "category_map": {
+    "grocery": 0,
+    "rent": 1,
+    "utility": 2,
+    "shopping": 3,
+    "transfer": 4,
+    "subscription": 5,
+    "supplier": 6,
+    "salary": 7,
+    "other": 8
+  },
+  "field_order": [
+    "amount",
+    "country",
+    "category",
+    "is_new_ben",
+    "is_weekend",
+    "hour",
+    "day",
+    "time_delta"
+  ],
+  "field_descriptions": {
+    "amount": "EUR amount bucket (0=<\u20ac50, 9=>\u20ac25k)",
+    "country": "0=domestic, 1=EU cross-border, 2=non-EU",
+    "category": "Remittance category (0=grocery...8=other)",
+    "is_new_ben": "0=known beneficiary, 1=new beneficiary",
+    "is_weekend": "0=weekday, 1=weekend",
+    "hour": "Hour of day (0-23)",
+    "day": "Day of week (0=Mon, 6=Sun)",
+    "time_delta": "Time since last txn (0=<1hr, 7=>1month)"
+  }
+}
