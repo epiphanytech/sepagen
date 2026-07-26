@@ -26,7 +26,7 @@ The Transformer is trained to predict the next transaction given 20 past transac
 | Isolation Forest (baseline) | 0.9514 | 0.1368 |
 | SEPAGen Transformer | *see report* | *see report* |
 
-Threshold calibrated at 1% FPR (operationally realistic for a bank alert queue).
+Threshold calibrated at 1% FPR.
 
 ---
 
@@ -83,17 +83,42 @@ python src/model/phase4_transformer.py --test
 
 ---
 
-## APP Fraud Typologies (EPC 2025)
+## Inference
 
-| Typology | Victims | Signature |
-|---|---|---|
-| Bank/Authority Impersonation | 1,440 | Single large transfer, new domestic IBAN, "safe account" text |
-| Invoice / Mandate Fraud | 900 | Amount mirrors normal supplier payments, business accounts only |
-| Romance Scam | 720 | 4–8 escalating payments to same foreign IBAN over weeks |
-| CEO / BEC Fraud | 540 | Large amount, non-EU IBAN, Friday afternoon, business accounts |
+After training is complete, use `inference_demo.py` to score a new incoming transaction against a 20-transaction account history.
+
+### Prerequisites
+
+The following files must exist before running inference:
+
+- `sepagen_model.pt` — trained model checkpoint (produced by Step 4)
+- `data/tokeniser.json` — tokeniser config (produced by Step 1)
+
+### Run the demo
+
+```bash
+python src/model/inference_demo.py
+```
+
+The script:
+1. Loads the saved model checkpoint and tokeniser.
+2. Constructs a synthetic history of 20 normal transactions (a retiree making small domestic grocery/utility payments).
+3. Scores an anomalous incoming transaction (€8 500, cross-border, new IBAN, 11 pm, 30 min after the previous payment).
+4. Prints the anomaly score and flags it as `FLAGGED` or `normal` against a threshold calibrated at 1% FPR.
+
+Example output:
+
+```
+Model loaded  (val_loss=0.XXXX)
+
+Account history:   €45–95 grocery/utility, domestic, weekdays 10am
+Incoming txn:      €8500, cross-border, new IBAN, 11pm, 30min gap
+
+Anomaly score:     -X.XXXX  (threshold: -4.0268)
+Decision:          FLAGGED
+```
 
 ---
-
 ## Dataset
 
 The SynSEPA dataset will be published separately for research use:
